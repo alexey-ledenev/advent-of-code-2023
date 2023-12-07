@@ -1,6 +1,6 @@
 import { MAX_ITEMS } from "./constants.ts";
 
-const parseSet = (set: string) => {
+export const parseSet = (set: string) => {
   const setCubes = set.trim().split(",");
   return setCubes.reduce((map, items) => {
     const [countRaw, i] = items.trim().split(" ");
@@ -11,7 +11,7 @@ const parseSet = (set: string) => {
   }, new Map<string, number>());
 };
 
-const parseLine = (line: string) => {
+export const parseLine = (line: string) => {
   const [idRaw, setsRaw] = line.split(":");
   const gameId = idRaw.split(" ")[1].trim();
   const sets = setsRaw.trim().split(";");
