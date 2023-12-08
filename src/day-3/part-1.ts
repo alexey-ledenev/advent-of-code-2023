@@ -3,7 +3,7 @@ const symbolRegex = /[^.\d]/g;
 
 const hasSymbol = (s: string) => s.match(symbolRegex);
 
-const getLineNumbers = (line: string) => {
+export const getLineNumbers = (line: string) => {
   const result = [];
 
   let match: RegExpExecArray | null = null;
