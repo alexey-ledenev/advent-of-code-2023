@@ -1,4 +1,4 @@
-type Card = {
+export type Card = {
   winning: Map<number, number>;
   current: number[];
 };
@@ -20,7 +20,7 @@ const setCurrentList = (list: Card["current"], value: string) => {
   return list;
 };
 
-const parseLineCard = (line: string): Card => {
+export const parseLineCard = (line: string): Card => {
   const numbers = line.split(":")[1].trim();
   const [winning, current] = numbers.split("|");
   return {
@@ -32,18 +32,20 @@ const parseLineCard = (line: string): Card => {
   };
 };
 
-const calcCardPoints = (card: Card) => {
-  let points = 0;
-
+export const getCardSucceedCount = (card: Card) => {
   const calcSucceedCount = (count: number, current: number) => {
     if (card.winning.has(current)) {
       return count + 1;
     }
     return count;
   };
+  return card.current.reduce(calcSucceedCount, 0);
+};
 
-  const count = card.current.reduce(calcSucceedCount, 0);
+const calcCardPoints = (card: Card) => {
+  const count = getCardSucceedCount(card);
 
+  let points = 0;
   for (let i = 0; i < count; i++) {
     if (i === 0) {
       points += 1;
