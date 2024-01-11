@@ -1,4 +1,4 @@
-type Mapping = {
+export type Mapping = {
   destinationId: number;
   sourceId: number;
   rangeLength: number;
@@ -30,9 +30,7 @@ const parseMapLine = (line: string) => {
   return parseNumbers(mapNameOrIds);
 };
 
-const parseLines = ([seedsLine, ...mapLines]: string[]) => {
-  const seeds = parseSeedsLine(seedsLine) ?? [];
-
+export const parseMaps = (mapLines: string[]) => {
   const { maps } = mapLines.reduce((a, line, idx) => {
     const lineData = parseMapLine(line);
 
@@ -62,6 +60,12 @@ const parseLines = ([seedsLine, ...mapLines]: string[]) => {
     currentMap: undefined as Mapping[] | undefined,
   });
 
+  return maps;
+};
+
+const parseLines = ([seedsLine, ...mapLines]: string[]) => {
+  const seeds = parseSeedsLine(seedsLine) ?? [];
+  const maps = parseMaps(mapLines);
   return { seeds, maps };
 };
 
